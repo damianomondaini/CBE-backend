@@ -5,11 +5,7 @@ try
 {
     if (isset($_GET['action']))
     {
-        if($_GET['action'] == 'test')
-        {
-            test();
-        }
-        elseif($_GET['action'] == 'shop')
+        if($_GET['action'] == 'shop')
         {
             if(isset($_GET['role']) && $_GET['role'] == 1)
             {
