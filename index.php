@@ -99,7 +99,7 @@ try
     }
     else
     {
-        login();
+        
     }
 }
 catch(Exception $e)
