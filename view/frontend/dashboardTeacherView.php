@@ -61,11 +61,18 @@
                                 } elseif ($order['etat'] == 2)
                                 {
                                     echo 'Terminée';
+                                } elseif ($order['etat'] == 3)
+                                {
+                                    echo 'Annulée';
                                 }
                             ?>
                             </td>
                             <td><?= $order['prenom_eleve'] . ' ' . $order['nom_eleve']; ?></td>
-                            <td><a href="index.php?action=declineOrder&role=1&orderId=<?= $order['id_carte_visite']; ?>">✘</a></td>
+                            <td>
+                            <?php if($order['etat'] != 3)
+                                echo'<a href="index.php?action=declineOrder&role=1&orderId='. $order['id_carte_visite'] . '">✘</a>';
+                            ?>
+                            </td>
                         </tr>
                     <?php
                     }
