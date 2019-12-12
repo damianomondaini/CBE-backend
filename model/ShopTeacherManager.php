@@ -30,4 +30,12 @@ class ShopTeacherManager extends Manager
 
         return $affectedLines;
     }
+    public function validateOrderDb($orderId)
+    {
+        $db = $this->dbConnect();
+        $order = $db->prepare("UPDATE carte_visite SET etat='1' WHERE id_carte_visite=?");
+        $affectedLines = $order->execute(array($orderId));
+
+        return $affectedLines;
+    }
 }

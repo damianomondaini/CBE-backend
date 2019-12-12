@@ -69,7 +69,9 @@
                             </td>
                             <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
                             <td>
-                                <a href="index.php?action=validateOrder&role=0&orderId=<?= $order['id_carte_visite']; ?>">✔</a>
+                                <?php if($order['etat'] != 3)
+                                    echo'<a href="index.php?action=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
+                                ?>
                             </td>
                         </tr>
                     <?php
