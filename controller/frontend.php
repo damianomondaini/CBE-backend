@@ -33,6 +33,7 @@ function addOrder($firstName, $lastName, $title, $amount, $design, $appointment)
     }
     else
     {
+        sendMail();
         header('Location: index.php?action=dashboard&role=1');
     }
 }

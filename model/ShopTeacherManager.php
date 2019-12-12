@@ -22,4 +22,19 @@ class ShopTeacherManager extends Manager
 
         return $orders;
     }
+
+    public function sendMail() {
+      $to = "lionel@grandao.ch";
+      $mail_object = "Nouvelle commande CBE";
+      $mail_body = "Un élève a envoyé une nouvelle commande pour une " .PHP_EOL.;
+
+      $headers = array(
+        'From' => 'grandao.lionel@protonmail.com',
+        'Reply-to' => 'grandao.lionel@protonmail.com',
+        'X-Mailer' => 'PHP/' . phpversion(),
+        'Content-type' => 'text/html',
+        'Charset' => 'UTF-8' . PHP_EOL
+      )
+      mail ( $to , $mail_object , $mail_body , $headers)
+    }
 }
