@@ -33,7 +33,7 @@ function addOrder($firstName, $lastName, $title, $amount, $design, $appointment)
     }
     else
     {
-        header('Location: index.php?action=dashboard&role=1');
+        header('Location: http://dmondaini.eleves.mediamatique.ch/mail/mail.php');
     }
 }
 
