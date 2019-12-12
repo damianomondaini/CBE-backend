@@ -66,7 +66,21 @@ try
         }
         elseif($_GET['action'] == 'declineOrder')
         {
-            //ADD FUNCTION
+            if(isset($_GET['role']) && $_GET['role'] == 1 )
+            {
+                if(isset($_GET['orderId']))
+                {
+                    declineOrder($_GET['orderId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no order Id');
+                }
+            }
+            else
+            {
+                throw new Exception('Error: no role');
+            }
         }
     }
     else

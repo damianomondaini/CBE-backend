@@ -37,6 +37,22 @@ function addOrder($firstName, $lastName, $title, $amount, $design, $appointment)
     }
 }
 
+function declineOrder($orderId)
+{
+    $shopTeacherManager = new ShopTeacherManager();
+    $affectedLines = $shopTeacherManager->declineOrderDb($orderId);
+    
+    if ($affectedLines === false)
+    {
+        throw new Exception("Impossible d'effectuer la commande");
+    }
+    else
+    {
+        header('Location: index.php?action=dashboard&role=1');
+    }
+}
+
+
 function dashboardTeacher()
 {
     $shopTeacherManager = new ShopTeacherManager();

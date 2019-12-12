@@ -22,4 +22,12 @@ class ShopTeacherManager extends Manager
 
         return $orders;
     }
+    public function declineOrderDb($orderId)
+    {
+        $db = $this->dbConnect();
+        $order = $db->prepare("UPDATE carte_visite SET etat='3' WHERE id_carte_visite=?");
+        $affectedLines = $order->execute(array($orderId));
+
+        return $affectedLines;
+    }
 }
