@@ -55,6 +55,10 @@ try
             {
                 dashboardStudent();
             }
+            elseif(isset($_GET['role']) && $_GET['role'] == 2)
+            {
+                dashboardBoss();
+            }
             else
             {
                 throw new Exception('Error: dashboard');
@@ -90,6 +94,17 @@ try
                 {
                     throw new Exception('Error: no order Id');
                 }
+            }
+            else
+            {
+                throw new Exception('Error: no role');
+            }
+        }
+        elseif($_GET['action'] == 'assignUser')
+        {
+            if(isset($_GET['role']) && $_GET['role'] == 2 && isset($_GET['id']) && isset($_POST['eleve']))
+            {
+                assignUser($_GET['id'], $_POST['eleve']);
             }
             else
             {

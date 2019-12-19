@@ -39,6 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=dashboard&role=0">Dashboard élève</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?action=dashboard&role=2">Dashboard patron</a>
+                    </li>
                 </ul>
             </div>
         </nav>

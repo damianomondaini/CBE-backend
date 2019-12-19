@@ -3,6 +3,7 @@
 require_once('./model/TestManager.php');
 require_once('./model/ShopTeacherManager.php');
 require_once('./model/ShopStudentManager.php');
+require_once('./model/ShopBossManager.php');
 
 function shopTeacher()
 {
@@ -74,4 +75,28 @@ function dashboardStudent()
     $orders = $shopStudentManager->showOrders();
 
     require('./view/frontend/dashboardStudentView.php');
+}
+
+function dashboardBoss()
+{
+    $shopBossManager = new ShopBossManager();
+    $unassignedOrders = $shopBossManager->showOrders();
+    $students = $shopBossManager->getStudents();
+
+    require('./view/frontend/dashboardBossView.php');
+}
+
+function assignUser($idOrder, $idUser)
+{
+    $shopBossManager = new ShopBossManager();
+    $affectedLines = $shopBossManager->assignUserDb($idOrder, $idUser);
+
+    if ($affectedLines === false)
+    {
+        throw new Exception("Impossible d'effectuer la commande");
+    }
+    else
+    {
+        header('Location: index.php?action=dashboard&role=2');
+    }
 }
