@@ -5,11 +5,7 @@ try
 {
     if (isset($_GET['action']))
     {
-        if($_GET['action'] == 'test')
-        {
-            test();
-        }
-        elseif($_GET['action'] == 'shop')
+        if($_GET['action'] == 'shop')
         {
             if(isset($_GET['role']) && $_GET['role'] == 1)
             {
@@ -59,6 +55,10 @@ try
             {
                 dashboardStudent();
             }
+            elseif(isset($_GET['role']) && $_GET['role'] == 2)
+            {
+                dashboardBoss();
+            }
             else
             {
                 throw new Exception('Error: dashboard');
@@ -66,12 +66,55 @@ try
         }
         elseif($_GET['action'] == 'declineOrder')
         {
-            //ADD FUNCTION
+            if(isset($_GET['role']) && $_GET['role'] == 1 )
+            {
+                if(isset($_GET['orderId']))
+                {
+                    declineOrder($_GET['orderId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no order Id');
+                }
+            }
+            else
+            {
+                throw new Exception('Error: no role');
+            }
+        }
+        elseif($_GET['action'] == 'validateOrder')
+        {
+            if(isset($_GET['role']) && $_GET['role'] == 1 )
+            {
+                if(isset($_GET['orderId']))
+                {
+                    validateOrder($_GET['orderId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no order Id');
+                }
+            }
+            else
+            {
+                throw new Exception('Error: no role');
+            }
+        }
+        elseif($_GET['action'] == 'assignUser')
+        {
+            if(isset($_GET['role']) && $_GET['role'] == 2 && isset($_GET['id']) && isset($_POST['eleve']))
+            {
+                assignUser($_GET['id'], $_POST['eleve']);
+            }
+            else
+            {
+                throw new Exception('Error: no role');
+            }
         }
     }
     else
     {
-        login();
+        
     }
 }
 catch(Exception $e)

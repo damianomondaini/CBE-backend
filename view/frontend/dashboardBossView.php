@@ -1,16 +1,16 @@
-<?php $title = 'Dashboard'; ?>
+<?php $title = 'Dashboard Boss'; ?>
 
 <?php ob_start(); ?>
 
 <section class="dashboard container">
     <div class="row">
         <div class="col-sm-12">
-            <h1>Dashboard enseignant</h1>
+            <h1>Dashboard patron</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2>Mes commandes</h2>
+            <h2>Commandes à assigner</h2>
         </div>
     </div>
     <div class="row">
@@ -30,57 +30,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    while ($order = $orders[0]->fetch())
-                    {
-                    ?>
-                        <tr>
-                            <th scope="row"><?= $order['id_carte_visite']; ?></th>
-                            <td><?= $order['nom']; ?></td>
-                            <td><?= $order['prenom']; ?></td>
-                            <td><?= $order['titre']; ?></td>
-                            <td><?= $order['nombre']; ?></td>
-                            <td>
-                            <?php
-                                if($order['rdv'] == 1)
-                                {
-                                    echo 'Non';
-                                } else {
-                                    echo 'Oui';
-                                }
-                            ?>
-                            </td>
-                            <td>
-                            <?php
-                                if($order['etat'] == 0)
-                                {
-                                    echo 'Pas validée';
-                                } elseif ($order['etat'] == 1)
-                                {
-                                    echo 'En cours';
-                                } elseif ($order['etat'] == 2)
-                                {
-                                    echo 'Terminée';
-                                } elseif ($order['etat'] == 3)
-                                {
-                                    echo 'Annulée';
-                                }
-                            ?>
-                            </td>
-                            <td><?= $order['prenom_eleve'] . ' ' . $order['nom_eleve']; ?></td>
-                            <td>
-                            <?php if($order['etat'] != 3)
-                                echo'<a href="index.php?action=declineOrder&role=1&orderId='. $order['id_carte_visite'] . '">✘</a>';
-                            ?>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    $orders[0]->closeCursor();
-                    ?>
 
-<?php
-                    while ($order = $orders[1]->fetch())
+                    <?php
+                    while ($order = $unassignedOrders->fetch())
                     {
                     ?>
                         <tr>
@@ -118,14 +70,27 @@
                             </td>
                             <td>Non assignée</td>
                             <td>
-                            <?php if($order['etat'] != 3)
-                                echo'<a href="index.php?action=declineOrder&role=1&orderId='. $order['id_carte_visite'] . '">✘</a>';
-                            ?>
+                            <?php if($order['etat'] == 0){ ?>
+                                <form action="index.php?action=assignUser&role=2&id=<?= $order['id_carte_visite']; ?>" method="POST">
+                                <select name="eleve" id="eleve">
+                                <?php
+                                while ($student = $students->fetch())
+                                {
+                                ?>
+                                <option value="<?= $student['id_utilisateurs']; ?>"><?= $student['nom']; ?> <?= $student['prenom']; ?></option>
+                                <?php
+                                }
+                                $students->closeCursor();
+                                ?>
+                                </select>
+                                <input type="submit" value="Assign">
+                                </form>
+                            <?php } ?>
                             </td>
                         </tr>
                     <?php
                     }
-                    $orders[1]->closeCursor();
+                    $unassignedOrders->closeCursor();
                     ?>
                 </tbody>
             </table>

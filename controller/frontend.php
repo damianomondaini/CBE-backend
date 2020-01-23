@@ -3,14 +3,7 @@
 require_once('./model/TestManager.php');
 require_once('./model/ShopTeacherManager.php');
 require_once('./model/ShopStudentManager.php');
-
-function test()
-{
-    $testManager = new TestManager();
-    $tests = $testManager->getGoals();
-
-    require('./view/frontend/listTestsView.php');
-}
+require_once('./model/ShopBossManager.php');
 
 function shopTeacher()
 {
@@ -33,10 +26,40 @@ function addOrder($firstName, $lastName, $title, $amount, $design, $appointment)
     }
     else
     {
-        sendMail();
+        header('Location: http://dmondaini.eleves.mediamatique.ch/mail/mail.php');
+    }
+}
+
+function declineOrder($orderId)
+{
+    $shopTeacherManager = new ShopTeacherManager();
+    $affectedLines = $shopTeacherManager->declineOrderDb($orderId);
+
+    if ($affectedLines === false)
+    {
+        throw new Exception("Impossible d'effectuer la commande");
+    }
+    else
+    {
         header('Location: index.php?action=dashboard&role=1');
     }
 }
+
+function validateOrder($orderId)
+{
+    $shopTeacherManager = new ShopTeacherManager();
+    $affectedLines = $shopTeacherManager->validateOrderDb($orderId);
+
+    if ($affectedLines === false)
+    {
+        throw new Exception("Impossible d'effectuer la commande");
+    }
+    else
+    {
+        header('Location: index.php?action=dashboard&role=0');
+    }
+}
+
 
 function dashboardTeacher()
 {
@@ -52,4 +75,28 @@ function dashboardStudent()
     $orders = $shopStudentManager->showOrders();
 
     require('./view/frontend/dashboardStudentView.php');
+}
+
+function dashboardBoss()
+{
+    $shopBossManager = new ShopBossManager();
+    $unassignedOrders = $shopBossManager->showOrders();
+    $students = $shopBossManager->getStudents();
+
+    require('./view/frontend/dashboardBossView.php');
+}
+
+function assignUser($idOrder, $idUser)
+{
+    $shopBossManager = new ShopBossManager();
+    $affectedLines = $shopBossManager->assignUserDb($idOrder, $idUser);
+
+    if ($affectedLines === false)
+    {
+        throw new Exception("Impossible d'effectuer la commande");
+    }
+    else
+    {
+        header('Location: index.php?action=dashboard&role=2');
+    }
 }
