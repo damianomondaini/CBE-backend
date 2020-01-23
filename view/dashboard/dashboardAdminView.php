@@ -1,16 +1,20 @@
-<?php $title = 'Dashboard élève'; ?>
+<?php $title = 'Dashboard Boss'; ?>
+
+<?php
+    $allStudents = $students->fetchAll();
+?>
 
 <?php ob_start(); ?>
 
 <section class="dashboard container">
     <div class="row">
         <div class="col-sm-12">
-            <h1>Dashboard élève</h1>
+            <h1>Dashboard patron</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2>Mes commandes à traiter</h2>
+            <h2>Commandes à assigner</h2>
         </div>
     </div>
     <div class="row">
@@ -25,13 +29,14 @@
                         <th scope="col">Quantité</th>
                         <th scope="col">RDV</th>
                         <th scope="col">État</th>
-                        <th scope="col">Enseignant</th>
+                        <th scope="col">Élève assigné</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php
-                    while ($order = $orders->fetch())
+                    while ($order = $unassignedOrders->fetch())
                     {
                     ?>
                         <tr>
@@ -67,16 +72,25 @@
                                 }
                             ?>
                             </td>
-                            <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
+                            <td>Non assignée</td>
                             <td>
-                                <?php if($order['etat'] != 1)
-                                    echo'<a href="index.php?action=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
-                                ?>
+                                <form action="index.php?action=assignUser&role=2&id=<?= $order['id_carte_visite']; ?>" method="POST">
+                                <select name="eleve" id="eleve">
+                                    <?php
+                                        for ($i=0; $i < count($allStudents); $i++) { 
+                                    ?>
+                                        <option value="<?= $allStudents[$i]['id_utilisateurs'];?>"><?= $allStudents[$i]['nom'];?> <?= $allStudents[$i]['prenom'];?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                                <input type="submit" value="Assign">
+                                </form>
                             </td>
                         </tr>
                     <?php
                     }
-                    $orders->closeCursor();
+                    $unassignedOrders->closeCursor();
                     ?>
                 </tbody>
             </table>
@@ -86,4 +100,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view\frontend\template.php'); ?>

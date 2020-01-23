@@ -1,16 +1,16 @@
-<?php $title = 'Dashboard élève'; ?>
+<?php $title = 'Dashboard'; ?>
 
 <?php ob_start(); ?>
 
 <section class="dashboard container">
     <div class="row">
         <div class="col-sm-12">
-            <h1>Dashboard élève</h1>
+            <h1>Dashboard enseignant</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2>Mes commandes à traiter</h2>
+            <h2>Mes commandes</h2>
         </div>
     </div>
     <div class="row">
@@ -25,7 +25,7 @@
                         <th scope="col">Quantité</th>
                         <th scope="col">RDV</th>
                         <th scope="col">État</th>
-                        <th scope="col">Enseignant</th>
+                        <th scope="col">Élève assigné</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -67,11 +67,11 @@
                                 }
                             ?>
                             </td>
-                            <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
+                            <td><?= $order['prenom_eleve'] . ' ' . $order['nom_eleve']; ?></td>
                             <td>
-                                <?php if($order['etat'] != 1)
-                                    echo'<a href="index.php?action=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
-                                ?>
+                            <?php if($order['etat'] == 0)
+                                echo'<a href="index2.php?req=declineOrder&role=2&orderId='. $order['id_carte_visite'] . '">✘</a>';
+                            ?>
                             </td>
                         </tr>
                     <?php
@@ -86,4 +86,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view\frontend\template.php'); ?>

@@ -55,13 +55,16 @@
                                 if($order['etat'] == 0)
                                 {
                                     echo 'Pas validée';
-                                } elseif ($order['etat'] == 1)
+                                } 
+                                elseif ($order['etat'] == 1)
                                 {
                                     echo 'En cours';
-                                } elseif ($order['etat'] == 2)
+                                } 
+                                elseif ($order['etat'] == 2)
                                 {
                                     echo 'Terminée';
-                                } elseif ($order['etat'] == 3)
+                                } 
+                                elseif ($order['etat'] == 3)
                                 {
                                     echo 'Annulée';
                                 }
@@ -69,8 +72,12 @@
                             </td>
                             <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
                             <td>
-                                <?php if($order['etat'] != 1)
-                                    echo'<a href="index.php?action=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
+                                <?php 
+                                    if($order['etat'] == 0)
+                                    {
+                                        echo'<a href="index2.php?req=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
+                                        echo'<a href="index2.php?req=declineOrder&role=2&orderId='. $order['id_carte_visite'] . '">✘</a>';
+                                    }
                                 ?>
                             </td>
                         </tr>
@@ -86,4 +93,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view\frontend\template.php'); ?>
