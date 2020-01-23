@@ -1,5 +1,9 @@
 <?php $title = 'Dashboard Boss'; ?>
 
+<?php
+    $allStudents = $students->fetchAll();
+?>
+
 <?php ob_start(); ?>
 
 <section class="dashboard container">
@@ -70,22 +74,18 @@
                             </td>
                             <td>Non assignée</td>
                             <td>
-                            <?php if($order['etat'] == 0){ ?>
                                 <form action="index.php?action=assignUser&role=2&id=<?= $order['id_carte_visite']; ?>" method="POST">
                                 <select name="eleve" id="eleve">
-                                <?php
-                                while ($student = $students->fetch())
-                                {
-                                ?>
-                                <option value="<?= $student['id_utilisateurs']; ?>"><?= $student['nom']; ?> <?= $student['prenom']; ?></option>
-                                <?php
-                                }
-                                $students->closeCursor();
-                                ?>
+                                    <?php
+                                        for ($i=0; $i < count($allStudents); $i++) { 
+                                    ?>
+                                        <option value="<?= $allStudents[$i]['id_utilisateurs'];?>"><?= $allStudents[$i]['nom'];?> <?= $allStudents[$i]['prenom'];?></option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                                 <input type="submit" value="Assign">
                                 </form>
-                            <?php } ?>
                             </td>
                         </tr>
                     <?php
@@ -100,4 +100,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view\frontend\template.php'); ?>

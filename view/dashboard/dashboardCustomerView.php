@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    while ($order = $orders[0]->fetch())
+                    while ($order = $orders->fetch())
                     {
                     ?>
                         <tr>
@@ -69,63 +69,14 @@
                             </td>
                             <td><?= $order['prenom_eleve'] . ' ' . $order['nom_eleve']; ?></td>
                             <td>
-                            <?php if($order['etat'] != 3)
-                                echo'<a href="index.php?action=declineOrder&role=1&orderId='. $order['id_carte_visite'] . '">✘</a>';
+                            <?php if($order['etat'] == 0)
+                                echo'<a href="index2.php?req=declineOrder&role=2&orderId='. $order['id_carte_visite'] . '">✘</a>';
                             ?>
                             </td>
                         </tr>
                     <?php
                     }
-                    $orders[0]->closeCursor();
-                    ?>
-
-<?php
-                    while ($order = $orders[1]->fetch())
-                    {
-                    ?>
-                        <tr>
-                            <th scope="row"><?= $order['id_carte_visite']; ?></th>
-                            <td><?= $order['nom']; ?></td>
-                            <td><?= $order['prenom']; ?></td>
-                            <td><?= $order['titre']; ?></td>
-                            <td><?= $order['nombre']; ?></td>
-                            <td>
-                            <?php
-                                if($order['rdv'] == 1)
-                                {
-                                    echo 'Non';
-                                } else {
-                                    echo 'Oui';
-                                }
-                            ?>
-                            </td>
-                            <td>
-                            <?php
-                                if($order['etat'] == 0)
-                                {
-                                    echo 'Pas validée';
-                                } elseif ($order['etat'] == 1)
-                                {
-                                    echo 'En cours';
-                                } elseif ($order['etat'] == 2)
-                                {
-                                    echo 'Terminée';
-                                } elseif ($order['etat'] == 3)
-                                {
-                                    echo 'Annulée';
-                                }
-                            ?>
-                            </td>
-                            <td>Non assignée</td>
-                            <td>
-                            <?php if($order['etat'] != 3)
-                                echo'<a href="index.php?action=declineOrder&role=1&orderId='. $order['id_carte_visite'] . '">✘</a>';
-                            ?>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    $orders[1]->closeCursor();
+                    $orders->closeCursor();
                     ?>
                 </tbody>
             </table>
@@ -135,4 +86,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('view\frontend\template.php'); ?>

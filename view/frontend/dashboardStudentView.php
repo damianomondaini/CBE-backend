@@ -69,7 +69,7 @@
                             </td>
                             <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
                             <td>
-                                <?php if($order['etat'] != 3)
+                                <?php if($order['etat'] != 1)
                                     echo'<a href="index.php?action=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
                                 ?>
                             </td>

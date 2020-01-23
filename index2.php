@@ -7,6 +7,8 @@ require('controller/products_controller.php');
 require('controller/roles_controller.php');
 require('controller/users_controller.php');
 require('controller/shop_controller.php');
+require('controller/dashboard_controller.php');
+
 
 try
 {
@@ -47,7 +49,7 @@ try
                 }
                 elseif(isset($_GET['role']) && $_GET['role'] == 2)
                 {
-                    dashboardCustormer();
+                    dashboardCustomer();
                 }
                 elseif(isset($_GET['role']) && $_GET['role'] == 3)
                 {
@@ -57,6 +59,41 @@ try
                 {
                     throw new Exception("Error: no role or you are unauthorized");
                 }
+                break;
+            case 'declineOrder':
+                if(isset($_GET['role']) && $_GET['role'] == 2 )
+                {
+                    if(isset($_GET['orderId']))
+                    {
+                        declineOrder($_GET['orderId']);
+                    }
+                    else
+                    {
+                        throw new Exception('Error: no order Id');
+                    }
+                }
+                else
+                {
+                    throw new Exception('Error: no role');
+                }
+                break;
+            case 'validateOrder':
+                if(isset($_GET['role']) && $_GET['role'] == 1 )
+                {
+                    if(isset($_GET['orderId']))
+                    {
+                        validateOrder($_GET['orderId']);
+                    }
+                    else
+                    {
+                        throw new Exception('Error: no order Id');
+                    }
+                }
+                else
+                {
+                    throw new Exception('Error: no role');
+                }
+                break;
         }
     }
     else
