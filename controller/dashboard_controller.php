@@ -10,6 +10,7 @@ function dashboardStudent()
 
     require('./view/dashboard/dashboardStudentView.php');
 }
+
 function dashboardCustomer()
 {
     $dashboardManager = new DashboardManager();
@@ -17,6 +18,7 @@ function dashboardCustomer()
 
     require('./view/dashboard/dashboardCustomerView.php');
 }
+
 function dashboardAdmin()
 {
     $dashboardManager = new DashboardManager();

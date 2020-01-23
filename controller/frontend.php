@@ -86,7 +86,7 @@ function dashboardBoss()
     require('./view/frontend/dashboardBossView.php');
 }
 
-function assignUser($idOrder, $idUser)
+/*function assignUser($idOrder, $idUser)
 {
     $shopBossManager = new ShopBossManager();
     $affectedLines = $shopBossManager->assignUserDb($idOrder, $idUser);
@@ -99,4 +99,4 @@ function assignUser($idOrder, $idUser)
     {
         header('Location: index.php?action=dashboard&role=2');
     }
-}
+}*/

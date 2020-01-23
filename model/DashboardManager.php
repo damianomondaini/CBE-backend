@@ -6,7 +6,7 @@ class DashboardManager extends Manager
     public function showAdminOrders()
     {
         $db = $this->dbConnect();
-        $unassignedOrders = $db->prepare("SELECT carte_visite.id_carte_visite, carte_visite.nom, carte_visite.prenom, carte_visite.titre, carte_visite.nombre, carte_visite.rdv, carte_visite.etat FROM carte_visite INNER JOIN utilisateurs ON carte_visite.idx_enseignant = utilisateurs.id_utilisateurs WHERE carte_visite.idx_eleve IS NULL AND carte_visite.etat != 3 ORDER BY carte_visite.id_carte_visite DESC");
+        $unassignedOrders = $db->prepare("SELECT orders.id_order, orders.value, orders.amount, order_status.name AS status, products.name AS product_name FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN order_status ON orders.idx_status = order_status.id_order_status INNER JOIN products ON orders.idx_product = products.id_product WHERE idx_cbe_student IS NULL ORDER BY orders.id_order");
         $unassignedOrders->execute();
 
         return $unassignedOrders;
@@ -15,7 +15,7 @@ class DashboardManager extends Manager
     public function getStudents()
     {
         $db = $this->dbConnect();
-        $students = $db->prepare("SELECT utilisateurs.id_utilisateurs, utilisateurs.prenom, utilisateurs.nom FROM utilisateurs WHERE utilisateurs.role = 0 ORDER BY utilisateurs.prenom ASC");
+        $students = $db->prepare("SELECT users.id_user, users.name, users.surname FROM users WHERE users.idx_role = 1 ORDER BY users.name ASC");
         $students->execute();
 
         return $students;
@@ -29,14 +29,16 @@ class DashboardManager extends Manager
 
         return $user;
     }
+
     public function showStudentOrders()
     {
         $db = $this->dbConnect();
-        $orders = $db->prepare("SELECT carte_visite.id_carte_visite, carte_visite.nom, carte_visite.prenom, carte_visite.titre, carte_visite.nombre, carte_visite.rdv, carte_visite.etat, utilisateurs.nom AS nom_enseignant, utilisateurs.prenom AS prenom_enseignant FROM carte_visite INNER JOIN utilisateurs ON carte_visite.idx_enseignant = utilisateurs.id_utilisateurs WHERE carte_visite.idx_eleve = 1 ORDER BY carte_visite.id_carte_visite DESC");
+        $orders = $db->prepare("SELECT orders.id_order, orders.amount, orders.value, orders.idx_status, users.name AS customer_name, users.surname AS customer_surname, products.name AS product_name, order_status.name AS status FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN products ON orders.idx_product = products.id_product INNER JOIN order_status ON orders.idx_status = order_status.id_order_status WHERE orders.idx_cbe_student = 1 ORDER BY orders.id_order ASC");
         $orders->execute();
 
         return $orders;
     }
+
     public function addOrderDb($firstName, $lastName, $title, $amount, $design, $appointment)
     {
         if ($appointment != 1) {
@@ -51,25 +53,9 @@ class DashboardManager extends Manager
     public function showCustomerOrders()
     {
         $db = $this->dbConnect();
-        $orders = $db->prepare("SELECT carte_visite.id_carte_visite, carte_visite.nom, carte_visite.prenom, carte_visite.titre, carte_visite.nombre, carte_visite.rdv, carte_visite.etat, utilisateurs.nom AS nom_eleve, utilisateurs.prenom AS prenom_eleve FROM carte_visite INNER JOIN utilisateurs ON carte_visite.idx_eleve = utilisateurs.id_utilisateurs WHERE carte_visite.idx_enseignant = 2 ORDER BY carte_visite.id_carte_visite DESC");
+        $orders = $db->prepare("SELECT id_order, amount, value, users.name AS student_name, users.surname AS student_surname, products.name AS product_name, order_status.name AS status, orders.idx_status FROM orders LEFT JOIN users ON orders.idx_cbe_student = users.id_user INNER JOIN products ON orders.idx_product = products.id_product INNER JOIN order_status ON orders.idx_status = order_status.id_order_status WHERE orders.idx_customer = 3 ORDER BY orders.id_order ASC");
         $orders->execute();
 
         return $orders;
-    }
-    public function declineOrderDb($orderId)
-    {
-        $db = $this->dbConnect();
-        $order = $db->prepare("UPDATE carte_visite SET etat='3' WHERE id_carte_visite=?");
-        $affectedLines = $order->execute(array($orderId));
-
-        return $affectedLines;
-    }
-    public function validateOrderDb($orderId)
-    {
-        $db = $this->dbConnect();
-        $order = $db->prepare("UPDATE carte_visite SET etat='1' WHERE id_carte_visite=?");
-        $affectedLines = $order->execute(array($orderId));
-
-        return $affectedLines;
     }
 }

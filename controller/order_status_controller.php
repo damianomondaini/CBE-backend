@@ -9,13 +9,14 @@ function declineOrder($orderId)
     
     if ($affectedLines === false)
     {
-        throw new Exception("Impossible d'effectuer la commande");
+        throw new Exception("Unable to decline order");
     }
     else
     {
-        header('Location: index2.php?req=dashboard&role=2');
+        header('Location: index.php?req=dashboard&role=1');
     }
 }
+
 function validateOrder($orderId)
 {
     $orderStatusManager = new OrderStatusManager();
@@ -23,10 +24,40 @@ function validateOrder($orderId)
     
     if ($affectedLines === false)
     {
-        throw new Exception("Impossible d'effectuer la commande");
+        throw new Exception("Unable to validate order");
     }
     else
     {
-        header('Location: index2.php?req=dashboard&role=1');
+        header('Location: index.php?req=dashboard&role=1');
+    }
+}
+
+function acceptOrder($orderId)
+{
+    $orderStatusManager = new OrderStatusManager();
+    $affectedLines = $orderStatusManager->acceptOrderDb($orderId);
+    
+    if ($affectedLines === false)
+    {
+        throw new Exception("Unable to accept order");
+    }
+    else
+    {
+        header('Location: index.php?req=dashboard&role=1');
+    }
+}
+
+function cancelOrder($orderId)
+{
+    $orderStatusManager = new OrderStatusManager();
+    $affectedLines = $orderStatusManager->cancelOrderDb($orderId);
+    
+    if ($affectedLines === false)
+    {
+        throw new Exception("Unable to cancel order");
+    }
+    else
+    {
+        header('Location: index.php?req=dashboard&role=1');
     }
 }
