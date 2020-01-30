@@ -11,4 +11,13 @@ class OrdersManager extends Manager
 
         return $affectedLines;
     }
+
+    public function assignOrderDb($orderId, $studentId)
+    {
+        $db = $this->dbConnect();
+        $update = $db->prepare("UPDATE orders SET idx_cbe_student = ?, idx_status = 2 WHERE id_order = ?");
+        $affectedLines = $update->execute(array($studentId, $orderId));
+
+        return $affectedLines;
+    }
 }

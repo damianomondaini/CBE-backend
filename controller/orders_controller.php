@@ -6,7 +6,7 @@ function addOrder($productId, $amount)
 {
     if($_GET['productId'] === '1')
     {
-        include './view/shop/forms/testForm1.php';
+        include './view/shop/forms/visitCard.php';
 
     }
     else if($_GET['productId'] === '2')
@@ -39,6 +39,21 @@ function addOrder($productId, $amount)
     }
     else
     {
-        header('Location: index2.php?req=shop&role=2');
+        header('Location: index.php?req=dashboard&role=2');
+    }
+}
+
+function assignOrder($orderId, $studentId)
+{
+    $ordersManager = new OrdersManager();
+    $affectedLines = $ordersManager->assignOrderDb($orderId, $studentId);
+
+    if($affectedLines == false)
+    {
+        throw new Exception("Unable to assign order");
+    }
+    else
+    {
+        header('Location: index.php?req=dashboard&role=3');
     }
 }

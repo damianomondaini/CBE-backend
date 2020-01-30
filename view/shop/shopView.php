@@ -6,9 +6,9 @@
     <div class="row">
         <div class="col-sm-4 productColumn">
             <div class="card product">
-                <a href="index.php?action=cardProduct&role=1"><img src="src/public/img/carte-visite.jpg" class="card-img-top" alt="Carte de visite"></a>
+                <a href="index.php?req=product&role=2&productId=1"><img src="src/public/img/carte-visite.jpg" class="card-img-top" alt="Carte de visite"></a>
                 <div class="card-body">
-                <a href="index.php?action=cardProduct&role=1"><h5 class="card-title">Carte de visite</h5></a>
+                <a href="index.php?req=product&role=2&productId=1"><h5 class="card-title">Carte de visite</h5></a>
                     <p class="card-text">Votre splendide carte de visite pour les visites de stage par exemple !</p>
                 </div>
             </div>

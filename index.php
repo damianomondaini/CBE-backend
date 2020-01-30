@@ -1,123 +1,137 @@
 <?php
-require('controller/frontend.php');
+require('controller/card_designs_controller.php');
+require('controller/main_controller.php');
+require('controller/order_status_controller.php');
+require('controller/orders_controller.php');
+require('controller/products_controller.php');
+require('controller/roles_controller.php');
+require('controller/users_controller.php');
+require('controller/shop_controller.php');
+require('controller/dashboard_controller.php');
+
 
 try
 {
-    if (isset($_GET['action']))
+    if(isset($_GET['req']))
     {
-        if($_GET['action'] == 'shop')
+        switch ($_GET['req'])
         {
-            if(isset($_GET['role']) && $_GET['role'] == 1)
-            {
-                shopTeacher();
-            }
-            else
-            {
-                throw new Exception('Error: no role');
-            }
-        }
-        elseif($_GET['action'] == 'cardProduct')
-        {
-            if(isset($_GET['role']) && $_GET['role'] == 1)
-            {
-                cardProduct();
-            }
-            else
-            {
-                throw new Exception('Error: no role');
-            }
-        }
-        elseif($_GET['action'] == 'addOrder')
-        {
-            if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['title']) && isset($_POST['amount']) && isset($_POST['design']) && isset($_GET['role']) && $_GET['role'] == 1)
-            {
-                if (isset($_POST['appointment']))
+            case 'shop':
+                if(isset($_GET['role']) && $_GET['role'] != 1)
                 {
-                    $appointment = 1;
-                }
-                else {
-                    $appointment = 0;
-                }
-                addOrder($_POST['firstName'], $_POST['lastName'], $_POST['title'], $_POST['amount'], $_POST['design'], $appointment);
-            }
-            else
-            {
-                throw new Exception('Error: invalid form');
-            }
-        }
-        elseif($_GET['action'] == 'dashboard')
-        {
-            if(isset($_GET['role']) && $_GET['role'] == 1)
-            {
-                dashboardTeacher();
-            }
-            elseif(isset($_GET['role']) && $_GET['role'] == 0)
-            {
-                dashboardStudent();
-            }
-            elseif(isset($_GET['role']) && $_GET['role'] == 2)
-            {
-                dashboardBoss();
-            }
-            else
-            {
-                throw new Exception('Error: dashboard');
-            }
-        }
-        elseif($_GET['action'] == 'declineOrder')
-        {
-            if(isset($_GET['role']) && $_GET['role'] == 1 )
-            {
-                if(isset($_GET['orderId']))
-                {
-                    declineOrder($_GET['orderId']);
+                    showShop();
                 }
                 else
                 {
-                    throw new Exception('Error: no order Id');
+                    throw new Exception('Error: role is not set or you are unauthorized');
                 }
-            }
-            else
-            {
-                throw new Exception('Error: no role');
-            }
-        }
-        elseif($_GET['action'] == 'validateOrder')
-        {
-            if(isset($_GET['role']) && $_GET['role'] == 1 )
-            {
-                if(isset($_GET['orderId']))
+                break;
+            case 'product':
+                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']))
                 {
-                    validateOrder($_GET['orderId']);
+                    showProduct($_GET['productId']);
                 }
                 else
                 {
-                    throw new Exception('Error: no order Id');
+                    throw new Exception('Error: role is not set or you are unauthorized or your productId is not not correct');
                 }
-            }
-            else
-            {
-                throw new Exception('Error: no role');
-            }
-        }
-        elseif($_GET['action'] == 'assignUser')
-        {
-            if(isset($_GET['role']) && $_GET['role'] == 2 && isset($_GET['id']) && isset($_POST['eleve']))
-            {
-                assignUser($_GET['id'], $_POST['eleve']);
-            }
-            else
-            {
-                throw new Exception('Error: no role');
-            }
+                break;
+            case 'addOrder':
+                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']) && isset($_POST['amount']))
+                {
+                    addOrder($_GET['productId'], $_POST['amount'], $_GET['productId']);
+                }
+                break;
+            case 'dashboard':
+                if(isset($_GET['role']) && $_GET['role'] == 1)
+                {
+                    dashboardStudent();
+                }
+                elseif(isset($_GET['role']) && $_GET['role'] == 2)
+                {
+                    dashboardCustomer();
+                }
+                elseif(isset($_GET['role']) && $_GET['role'] == 3)
+                {
+                    dashboardAdmin();
+                }
+                else
+                {
+                    throw new Exception("Error: no role or you are unauthorized");
+                }
+                break;
+            case 'declineOrder':
+                if(isset($_GET['role']) && $_GET['role'] == 1 )
+                {
+                    if(isset($_GET['orderId']))
+                    {
+                        declineOrder($_GET['orderId']);
+                    }
+                    else
+                    {
+                        throw new Exception('Error: no order Id');
+                    }
+                }
+                else
+                {
+                    throw new Exception('Error: no role');
+                }
+                break;
+            case 'validateOrder':
+                if(isset($_GET['role']) && $_GET['role'] == 1 )
+                {
+                    if(isset($_GET['orderId']))
+                    {
+                        validateOrder($_GET['orderId']);
+                    }
+                    else
+                    {
+                        throw new Exception('Error: no order Id');
+                    }
+                }
+                else
+                {
+                    throw new Exception('Error: no role');
+                }
+                break;
+            case 'assignOrder':
+                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['orderId']) && $_GET['orderId'] > 0 && isset($_POST['studentId']))
+                {
+                    assignOrder($_GET['orderId'], $_POST['studentId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no role or you are unauthorized or form is not full');
+                }
+                break;
+            case 'acceptOrder':
+                if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
+                {
+                    acceptOrder($_GET['orderId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no role or you are unauthorized or no order id');
+                }
+                break;
+            case 'cancelOrder':
+                if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
+                {
+                    cancelOrder($_GET['orderId']);
+                }
+                else
+                {
+                    throw new Exception('Error: no role or you are unauthorized or no order id');
+                }
+                break;
         }
     }
     else
     {
-
+        showHomePage();
     }
 }
-catch(Exception $e)
+catch (Exception $e)
 {
     echo 'Error : ' . $e->getMessage();
 }

@@ -19,11 +19,9 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Titre</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Valeures</th>
                         <th scope="col">Quantité</th>
-                        <th scope="col">RDV</th>
                         <th scope="col">État</th>
                         <th scope="col">Enseignant</th>
                         <th scope="col">Actions</th>
@@ -35,48 +33,27 @@
                     {
                     ?>
                         <tr>
-                            <th scope="row"><?= $order['id_carte_visite']; ?></th>
-                            <td><?= $order['nom']; ?></td>
-                            <td><?= $order['prenom']; ?></td>
-                            <td><?= $order['titre']; ?></td>
-                            <td><?= $order['nombre']; ?></td>
+                            <th scope="row"><?= $order['id_order']; ?></th>
+                            <td><?= $order['product_name']; ?></td>
+                            <td><?php print_r(unserialize(base64_decode($order['value']))); ?></td>
+                            <td><?= $order['amount']; ?></td>
+                            <td><?= $order['status']; ?></td>
+                            <td><?php echo $order['customer_name'] . ' ' . $order['customer_surname']; ?></td>
                             <td>
-                            <?php
-                                if($order['rdv'] == 1)
-                                {
-                                    echo 'Non';
-                                } else {
-                                    echo 'Oui';
-                                }
-                            ?>
-                            </td>
-                            <td>
-                            <?php
-                                if($order['etat'] == 0)
-                                {
-                                    echo 'Pas validée';
-                                } 
-                                elseif ($order['etat'] == 1)
-                                {
-                                    echo 'En cours';
-                                } 
-                                elseif ($order['etat'] == 2)
-                                {
-                                    echo 'Terminée';
-                                } 
-                                elseif ($order['etat'] == 3)
-                                {
-                                    echo 'Annulée';
-                                }
-                            ?>
-                            </td>
-                            <td><?= $order['prenom_enseignant'] . ' ' . $order['nom_enseignant']; ?></td>
-                            <td>
-                                <?php 
-                                    if($order['etat'] == 0)
+                                <?php
+                                    if ($order['idx_status'] == 2)
                                     {
-                                        echo'<a href="index2.php?req=validateOrder&role=1&orderId='. $order['id_carte_visite'] . '">✔</a>';
-                                        echo'<a href="index2.php?req=declineOrder&role=2&orderId='. $order['id_carte_visite'] . '">✘</a>';
+                                ?>
+                                    <a href="index.php?req=acceptOrder&role=1&orderId=<?= $order['id_order']; ?>">Accepter</a>
+                                    <a href="index.php?req=declineOrder&role=1&orderId=<?= $order['id_order']; ?>">Rejeter</a>
+                                <?php
+                                    }
+                                    elseif ($order['idx_status'] == 3)
+                                    {
+                                ?>
+                                    <a href="index.php?req=validateOrder&role=1&orderId=<?= $order['id_order']; ?>">Valider</a>
+                                    <a href="index.php?req=cancelOrder&role=1&orderId=<?= $order['id_order']; ?>">Annuler</a>
+                                <?php
                                     }
                                 ?>
                             </td>
@@ -93,4 +70,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('view\frontend\template.php'); ?>
+<?php require('view/include/template.php'); ?>

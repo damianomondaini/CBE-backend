@@ -31,16 +31,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=shop&role=1">Shop enseignant</a>
+                        <a class="nav-link" href="index.php?req=shop&role=2">Shop client</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=dashboard&role=1">Dashboard enseignant</a>
+                        <a class="nav-link" href="index.php?req=dashboard&role=2">Dashboard client</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=dashboard&role=0">Dashboard élève</a>
+                        <a class="nav-link" href="index.php?req=dashboard&role=1">Dashboard élève CBE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=dashboard&role=2">Dashboard patron</a>
+                        <a class="nav-link" href="index.php?req=dashboard&role=3">Dashboard admin</a>
                     </li>
                 </ul>
             </div>
