@@ -50,6 +50,16 @@
                                     }
                                 ?>
                             </td>
+                            <td>
+                                <?php
+                                    if($order['idx_status'] == 1 || $order['idx_status'] == 2 || $order['idx_status'] == 3)
+                                    {
+                                ?>
+                                    <a href="index.php?req=cancelOrder&role=2&orderId=<?= $order['id_order']; ?>">Annuler</a>
+                                <?php
+                                    }
+                                ?>
+                            </td>
                         </tr>
                     <?php
                     }

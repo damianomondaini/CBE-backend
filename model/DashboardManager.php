@@ -6,7 +6,7 @@ class DashboardManager extends Manager
     public function showAdminOrders()
     {
         $db = $this->dbConnect();
-        $unassignedOrders = $db->prepare("SELECT orders.id_order, orders.value, orders.amount, order_status.name AS status, products.name AS product_name FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN order_status ON orders.idx_status = order_status.id_order_status INNER JOIN products ON orders.idx_product = products.id_product WHERE idx_cbe_student IS NULL ORDER BY orders.id_order");
+        $unassignedOrders = $db->prepare("SELECT orders.id_order, orders.value, orders.amount, order_status.name AS status, products.name AS product_name FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN order_status ON orders.idx_status = order_status.id_order_status INNER JOIN products ON orders.idx_product = products.id_product WHERE idx_cbe_student IS NULL AND orders.idx_status != 6 ORDER BY orders.id_order");
         $unassignedOrders->execute();
 
         return $unassignedOrders;
@@ -21,15 +21,6 @@ class DashboardManager extends Manager
         return $students;
     }
 
-    public function assignUserDb($idOrder, $idUser)
-    {
-        $db = $this->dbConnect();
-        $user = $db->prepare("UPDATE carte_visite  SET idx_eleve = ? WHERE carte_visite.id_carte_visite = ?");
-        $user->execute(array($idUser, $idOrder));
-
-        return $user;
-    }
-
     public function showStudentOrders()
     {
         $db = $this->dbConnect();
@@ -37,17 +28,6 @@ class DashboardManager extends Manager
         $orders->execute();
 
         return $orders;
-    }
-
-    public function addOrderDb($firstName, $lastName, $title, $amount, $design, $appointment)
-    {
-        if ($appointment != 1) {
-            $appointment = 0;
-        }
-        $db = $this->dbConnect();
-        $order = $db->prepare("INSERT INTO `carte_visite` (`id_carte_visite`, `nom`, `prenom`, `titre`, `nombre`, `rdv`, `etat`, `idx_enseignant`, `idx_eleve`, `idx_design`) VALUES (NULL, ?, ?, ?, ?, ?, '0', '2', NULL, ?)");
-        $affectedLines = $order->execute(array($lastName, $firstName, $title, $amount, $appointment, $design));
-        return $affectedLines;
     }
 
     public function showCustomerOrders()
