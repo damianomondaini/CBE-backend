@@ -6,7 +6,7 @@ class DashboardManager extends Manager
     public function showAdminOrders()
     {
         $db = $this->dbConnect();
-        $unassignedOrders = $db->prepare("SELECT orders.id_order, orders.value, orders.amount, order_status.name AS status, products.name AS product_name FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN order_status ON orders.idx_status = order_status.id_order_status INNER JOIN products ON orders.idx_product = products.id_product WHERE idx_cbe_student IS NULL AND orders.idx_status != 6 ORDER BY orders.id_order");
+        $unassignedOrders = $db->prepare("SELECT orders.id_order, orders.value, orders.amount, orders.date, order_status.name AS status, products.name AS product_name FROM orders INNER JOIN users ON orders.idx_customer = users.id_user INNER JOIN order_status ON orders.idx_status = order_status.id_order_status INNER JOIN products ON orders.idx_product = products.id_product WHERE idx_cbe_student IS NULL AND orders.idx_status != 6 ORDER BY orders.id_order");
         $unassignedOrders->execute();
 
         return $unassignedOrders;

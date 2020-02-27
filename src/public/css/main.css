@@ -1,7 +1,6 @@
-.product {
-    height: 100%;
-}
+/* Import materialize */
+@import '../../vendor/css/materialize.min.css';
 
-.shop > * {
-    margin-bottom: 20px;
-}
+/* Import components */
+@import 'components/temp.css';
+@import 'components/dashboard.css';
