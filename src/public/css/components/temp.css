@@ -1,0 +1,7 @@
+.product {
+    height: 100%;
+}
+
+.shop > * {
+    margin-bottom: 20px;
+}

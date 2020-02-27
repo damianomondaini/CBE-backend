@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Temp
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -16,39 +17,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    -->
+    <script type="text/javascript" src="src/vendor/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="src/public/css/main.css">
     <title><?= $title ?></title>
 </head>
 
-<body class="body">
-    <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?req=shop&role=2">Shop client</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?req=dashboard&role=2">Dashboard client</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?req=dashboard&role=1">Dashboard élève CBE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?req=dashboard&role=3">Dashboard admin</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main class="main">
-        <?= $content ?>
-    </main>
+<body>
+    <?php include 'header.php'; ?>
+    <?= $content ?>
 </body>
 
 </html>
