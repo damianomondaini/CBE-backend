@@ -4,4 +4,5 @@
 /* Import components */
 @import 'components/temp.css';
 @import 'components/dashboard.css';
+@import 'components/homepage.css';
 @import 'components/card.css';

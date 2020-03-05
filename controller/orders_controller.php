@@ -7,7 +7,6 @@ function addOrder($productId, $amount)
     if($_GET['productId'] === '1')
     {
         include './view/shop/forms/visitCard.php';
-
     }
     else if($_GET['productId'] === '2')
     {
