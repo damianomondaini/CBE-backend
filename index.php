@@ -39,7 +39,7 @@ try
             case 'addOrder':
                 if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']) && isset($_POST['amount']))
                 {
-                    addOrder($_GET['productId'], $_POST['amount'], $_GET['productId']);
+                    addOrder($_GET['productId'], $_POST['amount']);
                 }
                 break;
             case 'dashboard':
