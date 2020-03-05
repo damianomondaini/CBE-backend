@@ -34,6 +34,7 @@ function addOrder($productId, $amount)
 
     if ($affectedLines === false)
     {
+        print_r($value);
         throw new Exception("Error: Can't add your order");
     }
     else
