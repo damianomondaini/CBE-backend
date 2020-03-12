@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 
 
-<a href="http://localhost/CBE-backend/index.php?req=product&role=2&productId=1">
+<a href="index.php?req=product&productId=1">
     <div class="parallax-container valign-wrapper">
         <div class="container">
             <div class="center-align">

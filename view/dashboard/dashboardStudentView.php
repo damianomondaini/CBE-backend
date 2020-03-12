@@ -8,11 +8,10 @@
     <!--User-->
     <article id="user">
         <div class="row valign-wrapper">
-            <div class="col s6 center"><img class="circle z-depth-1" src="src/public/img/temp/Moritz_Tannast.jpg"
-                    alt="jacobi" width="60%"></div>
+        <div class="col s6 center"><img class="circle z-depth-1" src="src\public\img\default-user-icon.jpg" width="60%"></div>
             <div class="col s6 left-align">
-                <h3>Alain Jacobi</h3>
-                <h4>Client</h4>
+                <h3><?= $_SESSION['surname']; ?> <?= $_SESSION['name']; ?></h3>
+                <h4>Élève CBE</h4>
             </div>
         </div>
     </article>
@@ -82,15 +81,15 @@
                                     if ($order['idx_status'] == 2)
                                     {
                                 ?>
-                                    <a href="index.php?req=acceptOrder&role=1&orderId=<?= $order['id_order']; ?>" class="blue]-link" onclick="M.toast({html: 'Commande Accepter !'})">Accepter</a><br>
-                                    <a href="index.php?req=declineOrder&role=1&orderId=<?= $order['id_order']; ?>" class="red-link" onclick="M.toast({html: 'Commande Rejeter !'})">Rejeter</a>
+                                    <a href="index.php?req=acceptOrder&orderId=<?= $order['id_order']; ?>" class="blue]-link" onclick="M.toast({html: 'Commande Accepter !'})">Accepter</a><br>
+                                    <a href="index.php?req=declineOrder&orderId=<?= $order['id_order']; ?>" class="red-link" onclick="M.toast({html: 'Commande Rejeter !'})">Rejeter</a>
                                 <?php
                                     }
                                     elseif ($order['idx_status'] == 3)
                                     {
                                 ?>
-                                    <a href="index.php?req=validateOrder&role=1&orderId=<?= $order['id_order']; ?>" class="blue-link" onclick="M.toast({html: 'Commande Valide !'})">Valider</a><br>
-                                    <a href="index.php?req=cancelOrder&role=1&orderId=<?= $order['id_order']; ?>" class="red-link" onclick="M.toast({html: 'Commande Annulé !'})">Annuler</a>
+                                    <a href="index.php?req=validateOrder&orderId=<?= $order['id_order']; ?>" class="blue-link" onclick="M.toast({html: 'Commande Valide !'})">Valider</a><br>
+                                    <a href="index.php?req=cancelOrder&orderId=<?= $order['id_order']; ?>" class="red-link" onclick="M.toast({html: 'Commande Annulé !'})">Annuler</a>
                                 <?php
                                     }
                                 ?>

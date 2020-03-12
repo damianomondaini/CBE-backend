@@ -9,10 +9,9 @@
     <!--User-->
     <article id="user">
         <div class="row valign-wrapper">
-            <div class="col s6 center"><img class="circle z-depth-1" src="src/public/img/temp/Moritz_Tannast.jpg"
-                    alt="jacobi" width="60%"></div>
+        <div class="col s6 center"><img class="circle z-depth-1" src="src\public\img\default-user-icon.jpg" width="60%"></div>
             <div class="col s6 left-align">
-                <h3>Olivier Droz</h3>
+            <h3><?= $_SESSION['surname']; ?> <?= $_SESSION['name']; ?></h3>
                 <h4>Administrateur</h4>
             </div>
         </div>
@@ -62,7 +61,7 @@
                                     <div class="col s5">
                                         <p><strong>Commandé le</strong><br><?= $order['date']; ?></p>
                                     </div>
-                                    <form action="index.php?req=assignOrder&role=2&orderId=<?= $order['id_order']; ?>" method="POST">
+                                    <form action="index.php?req=assignOrder&orderId=<?= $order['id_order']; ?>" method="POST">
                                         <select name="studentId" id="studentId">
                                             <?php
                                                 for ($i=0; $i < count($allStudents); $i++) { 
