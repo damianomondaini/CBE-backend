@@ -17,18 +17,8 @@ try
     {
         switch ($_GET['req'])
         {
-            case 'shop':
-                if(isset($_GET['role']) && $_GET['role'] != 1)
-                {
-                    showShop();
-                }
-                else
-                {
-                    throw new Exception('Error: role is not set or you are unauthorized');
-                }
-            break;
             case 'product':
-                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']))
+                if(isset($_SESSION['role']) && $_SESSION['role'] != 1 && isset($_GET['productId']))
                 {
                     showProduct($_GET['productId']);
                 }
@@ -38,21 +28,21 @@ try
                 }
             break;
             case 'addOrder':
-                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']) && isset($_POST['amount']))
+                if(isset($_SESSION['role']) && $_SESSION['role'] != 1 && isset($_GET['productId']) && isset($_POST['amount']))
                 {
                     addOrder($_GET['productId'], $_POST['amount']);
                 }
             break;
             case 'dashboard':
-                if(isset($_GET['role']) && $_GET['role'] == 1)
+                if(isset($_SESSION['role']) && $_SESSION['role'] == 1)
                 {
                     dashboardStudent();
                 }
-                elseif(isset($_GET['role']) && $_GET['role'] == 2)
+                elseif(isset($_SESSION['role']) && $_SESSION['role'] == 2)
                 {
                     dashboardCustomer();
                 }
-                elseif(isset($_GET['role']) && $_GET['role'] == 3)
+                elseif(isset($_SESSION['role']) && $_SESSION['role'] == 3)
                 {
                     dashboardAdmin();
                 }
@@ -62,7 +52,7 @@ try
                 }
             break;
             case 'declineOrder':
-                if(isset($_GET['role']) && $_GET['role'] == 1 )
+                if(isset($_SESSION['role']) && $_SESSION['role'] == 1 )
                 {
                     if(isset($_GET['orderId']))
                     {
@@ -79,7 +69,7 @@ try
                 }
             break;
             case 'validateOrder':
-                if(isset($_GET['role']) && $_GET['role'] == 1 )
+                if(isset($_SESSION['role']) && $_SESSION['role'] == 1 )
                 {
                     if(isset($_GET['orderId']))
                     {
@@ -96,7 +86,7 @@ try
                 }
             break;
             case 'assignOrder':
-                if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['orderId']) && $_GET['orderId'] > 0 && isset($_POST['studentId']))
+                if(isset($_SESSION['role']) && $_SESSION['role'] != 1 && isset($_GET['orderId']) && $_GET['orderId'] > 0 && isset($_POST['studentId']))
                 {
                     assignOrder($_GET['orderId'], $_POST['studentId']);
                 }
@@ -106,7 +96,7 @@ try
                 }
             break;
             case 'acceptOrder':
-                if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
+                if(isset($_SESSION['role']) && $_SESSION['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
                 {
                     acceptOrder($_GET['orderId']);
                 }
@@ -116,7 +106,7 @@ try
                 }
             break;
             case 'cancelOrder':
-                if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
+                if(isset($_SESSION['role']) && $_SESSION['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
                 {
                     cancelOrder($_GET['orderId']);
                 }

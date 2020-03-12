@@ -33,8 +33,8 @@ class DashboardManager extends Manager
     public function showCustomerOrders()
     {
         $db = $this->dbConnect();
-        $orders = $db->prepare("SELECT id_order, amount, date, value, users.name AS student_name, users.surname AS student_surname, products.name AS product_name, order_status.name AS status, orders.idx_status FROM orders LEFT JOIN users ON orders.idx_cbe_student = users.id_user INNER JOIN products ON orders.idx_product = products.id_product INNER JOIN order_status ON orders.idx_status = order_status.id_order_status WHERE orders.idx_customer = 3 ORDER BY orders.id_order ASC");
-        $orders->execute();
+        $orders = $db->prepare("SELECT id_order, amount, date, value, users.name AS student_name, users.surname AS student_surname, products.name AS product_name, order_status.name AS status, orders.idx_status FROM orders LEFT JOIN users ON orders.idx_cbe_student = users.id_user INNER JOIN products ON orders.idx_product = products.id_product INNER JOIN order_status ON orders.idx_status = order_status.id_order_status WHERE orders.idx_customer = ? ORDER BY orders.id_order ASC");
+        $orders->execute(array($_SESSION['id']));
 
         return $orders;
     }

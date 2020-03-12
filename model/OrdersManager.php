@@ -6,8 +6,8 @@ class OrdersManager extends Manager
     public function addOrderDb($value, $amount, $productId)
     {
         $db = $this->dbConnect();
-        $order = $db->prepare("INSERT INTO orders (amount, `value`, `date`, idx_customer, idx_product, idx_status) VALUES (?, ?, ?, 3, ?, 1)");
-        $affectedLines = $order->execute(array($amount, $value, date("Y-m-d H:i:s"), $productId));
+        $order = $db->prepare("INSERT INTO orders (amount, `value`, `date`, idx_customer, idx_product, idx_status) VALUES (?, ?, ?, ?, ?, 1)");
+        $affectedLines = $order->execute(array($amount, $value, date("Y-m-d H:i:s"), $_SESSION['id'], $productId));
 
         return $affectedLines;
     }

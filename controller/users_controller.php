@@ -43,6 +43,7 @@ function signIn($email, $password)
     {
         if (password_verify($password, $user['password']))
         {
+            $_SESSION['id'] = $user['id_user'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['surname'] = $user['surname'];
             $_SESSION['email'] = $user['email'];
