@@ -4,7 +4,7 @@
 
 <?php ob_start(); ?>
 
-<form action="index2.php?req=addOrder&role=2&productId=2" method="POST">
+<form action="index2.php?req=addOrder&productId=2" method="POST">
     <label for="inputA">InputA</label><br/>
     <input type="text" name="inputA" id="inputA"><br/>
     <label for="inputB">InputB</label><br/>

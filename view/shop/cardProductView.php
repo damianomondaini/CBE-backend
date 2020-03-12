@@ -12,7 +12,7 @@
                     <h2>Description</h2>
                     <p class="card-text">Votre splendide carte de visite pour les visites de stage par exemple !</p>
                     <h2>Personnalisation</h2>
-                    <form action="index.php?action=addOrder&role=1" method="POST">
+                    <form action="index.php?action=addOrder" method="POST">
                         <div class="form-group">
                             <label for="firstName">Prénom</label>
                             <input type="text" class="form-control" id="firstName" name="firstName" required>

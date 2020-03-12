@@ -7,8 +7,7 @@
     <!--User-->
     <article id="user">
         <div class="row valign-wrapper">
-            <div class="col s6 center"><img class="circle z-depth-1" src="src\public\img\default-user-icon.jpg"
-                    alt="jacobi" width="60%"></div>
+            <div class="col s6 center"><img class="circle z-depth-1" src="src\public\img\default-user-icon.jpg" width="60%"></div>
             <div class="col s6 left-align">
                 <h3><?= $_SESSION['surname']; ?> <?= $_SESSION['name']; ?></h3>
                 <h4>Client</h4>
@@ -81,6 +80,7 @@
                             <div class="row">
                                 <div class="col s7">
                                     <p><strong>Description</strong><br>
+                                    <p><?php print_r(unserialize(base64_decode($order['value']))); ?></p>
                                     Numéo de la commande : <?= $order['id_order']; ?><br>
                                     Nombre de commande : <?= $order['amount']; ?></p>
                                 </div>

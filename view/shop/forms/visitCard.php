@@ -5,7 +5,7 @@
 <?php ob_start(); ?>
 
 <!-- Formulaire-->
-<form method="post" action="index.php?req=addOrder&role=2&productId=1">
+<form method="post" action="index.php?req=addOrder&productId=1">
 
     <!-- Image Large 
 type input = radio bouton-->

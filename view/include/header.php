@@ -12,13 +12,13 @@
                             {
                         ?>
                             <li style="color: black;">Bonjour, <?= $_SESSION['surname'] ?></li>
-                            <li><a href="index.php?req=signOut" class="cpnvgreen">Se deconnecter</a></li>
+                            <li><a href="index.php?req=signOut" class="cpnvgreen">Se déconnecter</a></li>
                         <?php
                             }
                             else {
                         ?>
                             <li><a href="index.php?req=signInPage" class="cpnvgreen">Se connecter</a></li>
-                            <li><a href="index.php?req=signUpPage" class="cpnvgreen">Créer un comptre</a></li>
+                            <li><a href="index.php?req=signUpPage" class="cpnvgreen">Créer un compte</a></li>
                         <?php
                             }
                         ?>
@@ -41,13 +41,13 @@
         {
     ?>
         <li style="color: black;">Bonjour, <?= $_SESSION['surname'] ?></li>
-        <li><a href="index.php?req=signOut" class="cpnvgreen">Se deconnecter</a></li>
+        <li><a href="index.php?req=signOut" class="cpnvgreen">Se déconnecter</a></li>
     <?php
         }
         else {
     ?>
         <li><a href="index.php?req=signInPage" class="cpnvgreen">Se connecter</a></li>
-        <li><a href="index.php?req=signUpPage" class="cpnvgreen">Créer un comptre</a></li>
+        <li><a href="index.php?req=signUpPage" class="cpnvgreen">Créer un compte</a></li>
     <?php
         }
     ?>
