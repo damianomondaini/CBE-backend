@@ -34,12 +34,11 @@ function addOrder($productId, $amount)
 
     if ($affectedLines === false)
     {
-        print_r($value);
         throw new Exception("Error: Can't add your order");
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=2');
+        header('Location: index.php?req=dashboard');
     }
 }
 
@@ -54,6 +53,6 @@ function assignOrder($orderId, $studentId)
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=3');
+        header('Location: index.php?req=dashboard');
     }
 }

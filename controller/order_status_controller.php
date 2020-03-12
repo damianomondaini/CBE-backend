@@ -13,7 +13,7 @@ function declineOrder($orderId)
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=1');
+        header('Location: index.php?req=dashboard');
     }
 }
 
@@ -28,7 +28,7 @@ function validateOrder($orderId)
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=1');
+        header('Location: index.php?req=dashboard');
     }
 }
 
@@ -43,7 +43,7 @@ function acceptOrder($orderId)
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=1');
+        header('Location: index.php?req=dashboard');
     }
 }
 
@@ -58,6 +58,6 @@ function cancelOrder($orderId)
     }
     else
     {
-        header('Location: index.php?req=dashboard&role=1');
+        header('Location: index.php?req=dashboard');
     }
 }
