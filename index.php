@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('controller/card_designs_controller.php');
 require('controller/main_controller.php');
 require('controller/order_status_controller.php');
@@ -25,7 +26,7 @@ try
                 {
                     throw new Exception('Error: role is not set or you are unauthorized');
                 }
-                break;
+            break;
             case 'product':
                 if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']))
                 {
@@ -35,13 +36,13 @@ try
                 {
                     throw new Exception('Error: role is not set or you are unauthorized or your productId is not not correct');
                 }
-                break;
+            break;
             case 'addOrder':
                 if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['productId']) && isset($_POST['amount']))
                 {
                     addOrder($_GET['productId'], $_POST['amount']);
                 }
-                break;
+            break;
             case 'dashboard':
                 if(isset($_GET['role']) && $_GET['role'] == 1)
                 {
@@ -59,7 +60,7 @@ try
                 {
                     throw new Exception("Error: no role or you are unauthorized");
                 }
-                break;
+            break;
             case 'declineOrder':
                 if(isset($_GET['role']) && $_GET['role'] == 1 )
                 {
@@ -76,7 +77,7 @@ try
                 {
                     throw new Exception('Error: no role');
                 }
-                break;
+            break;
             case 'validateOrder':
                 if(isset($_GET['role']) && $_GET['role'] == 1 )
                 {
@@ -93,7 +94,7 @@ try
                 {
                     throw new Exception('Error: no role');
                 }
-                break;
+            break;
             case 'assignOrder':
                 if(isset($_GET['role']) && $_GET['role'] != 1 && isset($_GET['orderId']) && $_GET['orderId'] > 0 && isset($_POST['studentId']))
                 {
@@ -103,7 +104,7 @@ try
                 {
                     throw new Exception('Error: no role or you are unauthorized or form is not full');
                 }
-                break;
+            break;
             case 'acceptOrder':
                 if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
                 {
@@ -113,7 +114,7 @@ try
                 {
                     throw new Exception('Error: no role or you are unauthorized or no order id');
                 }
-                break;
+            break;
             case 'cancelOrder':
                 if(isset($_GET['role']) && $_GET['role'] > 0 && isset($_GET['orderId']) && $_GET['orderId'] > 0)
                 {
@@ -123,7 +124,36 @@ try
                 {
                     throw new Exception('Error: no role or you are unauthorized or no order id');
                 }
-                break;
+            break;
+            case 'signUpPage':
+                showSignUpPage();
+            break;
+            case 'signInPage':
+                showSignInPage();
+            break;
+            case 'addAccount':
+                if (isset($_POST['role']) && isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password']))
+                {
+                    addAccount($_POST['role'], $_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password']);
+                }
+                else
+                {
+                    throw new Exception('Error: form isn not full');
+                }
+            break;
+            case 'signIn':
+                if (isset($_POST['email']) && isset($_POST['password']))
+                {
+                    signIn($_POST['email'], $_POST['password']);
+                }
+                else
+                {
+                    throw new Exception('Error: form isn not full');
+                }
+            break;
+            case 'signOut':
+                signOut();
+            break;
         }
     }
     else
